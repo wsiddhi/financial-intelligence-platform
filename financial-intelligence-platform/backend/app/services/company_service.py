@@ -1,4 +1,5 @@
 import pandas as pd
+import yfinance as yf
 
 COMPANIES_CSV = "data/companies.csv"
 
@@ -54,3 +55,28 @@ def search_companies(query: str, limit: int = 15):
         })
 
     return companies
+
+
+def get_company_details(symbol: str):
+    try:
+        ticker = yf.Ticker(f"{symbol}.NS")
+
+        info = ticker.info
+
+        return {
+            "symbol": symbol,
+            "name": info.get("longName"),
+            "sector": info.get("sector"),
+            "industry": info.get("industry"),
+            "market_cap": info.get("marketCap"),
+            "current_price": info.get("currentPrice"),
+            "pe_ratio": info.get("trailingPE"),
+            "week52_high": info.get("fiftyTwoWeekHigh"),
+            "week52_low": info.get("fiftyTwoWeekLow"),
+            "website": info.get("website")
+        }
+
+    except Exception as e:
+        return {
+            "error": str(e)
+        }
