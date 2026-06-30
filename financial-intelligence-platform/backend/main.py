@@ -6,7 +6,8 @@ from app.api.company import router as company_router
 
 app = FastAPI(
     title="Financial Intelligence Platform",
-    version="1.0.0"
+    version="1.0.0",
+    description="An API platform for retrieving financial market data, overviews, and company analysis."
 )
 
 app.include_router(
